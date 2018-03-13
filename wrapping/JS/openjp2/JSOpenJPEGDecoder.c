@@ -144,8 +144,8 @@ EMSCRIPTEN_API int jp2_decode(void * data, int data_size, void ** p_image, int *
     return 0;
 }
 
-// This leaks memory like crazy!
-EMSCRIPTEN_API int jp2_encode(int width, int height, int bpp, void * pixels, void * icc, int iccLen, void ** out, int * outLen)
+// This probably leaks memory.
+EMSCRIPTEN_API int jp2_encode(int width, int height, int bpp, int quality, int rate, void * pixels, void * icc, int iccLen, void ** out, int * outLen)
 {
     const OPJ_COLOR_SPACE color_space = OPJ_CLRSPC_SRGB;
     int numcomps = 4;
@@ -161,6 +161,18 @@ EMSCRIPTEN_API int jp2_encode(int width, int height, int bpp, void * pixels, voi
     OPJ_BOOL bSuccess;
     opj_stream_t * l_stream = 00;
     opj_buffer_info_t bufferInfo;
+
+    if((quality == 0) || (quality == 100)) {
+        // Lossless
+        parameters.tcp_rates[0] = 0;  // lossless
+    } else {
+        // Set quality
+        parameters.tcp_distoratio[0] = (double)quality;
+        parameters.cp_fixed_quality = OPJ_TRUE;
+    }
+    if(rate != 0) {
+        parameters.tcp_rates[0] = (double)rate;
+    }
 
     opj_set_default_encoder_parameters(&parameters);
     parameters.cod_format = 0;
@@ -212,8 +224,10 @@ EMSCRIPTEN_API int jp2_encode(int width, int height, int bpp, void * pixels, voi
     image->y0 = 0;
     image->x1 = width;
     image->y1 = height;
-    image->icc_profile_buf = icc;
-    image->icc_profile_len = iccLen;
+    if(iccLen > 0) {
+        image->icc_profile_buf = icc;
+        image->icc_profile_len = iccLen;
+    }
 
     /* catch events using our callbacks and give a local context */
     opj_set_info_handler(l_codec, info_callback, 00);
