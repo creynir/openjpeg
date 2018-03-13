@@ -162,22 +162,26 @@ EMSCRIPTEN_API int jp2_encode(int width, int height, int bpp, int quality, int r
     opj_stream_t * l_stream = 00;
     opj_buffer_info_t bufferInfo;
 
-    if((quality == 0) || (quality == 100)) {
-        // Lossless
-        parameters.tcp_rates[0] = 0;  // lossless
-    } else {
-        // Set quality
-        parameters.tcp_distoratio[0] = (double)quality;
-        parameters.cp_fixed_quality = OPJ_TRUE;
-    }
-    if(rate != 0) {
-        parameters.tcp_rates[0] = (double)rate;
-    }
-
     opj_set_default_encoder_parameters(&parameters);
     parameters.cod_format = 0;
     parameters.tcp_numlayers = 1;
     parameters.cp_disto_alloc = 1;
+
+    if(rate != 0) {
+        parameters.tcp_rates[0] = (double)rate;
+        // printf("jp2_encode: rate %g\n", parameters.tcp_rates[0]);
+    } else {
+        if((quality == 0) || (quality == 100)) {
+            // Lossless
+            parameters.tcp_rates[0] = 0;  // lossless
+            // printf("jp2_encode: lossless\n");
+        } else {
+            // Set quality
+            parameters.tcp_distoratio[0] = (double)quality;
+            parameters.cp_fixed_quality = OPJ_TRUE;
+            // printf("jp2_encode: quality %g\n", parameters.tcp_distoratio[0]);
+        }
+    }
 
     for (i = 0; i < numcomps; i++) {
         cmptparm[i].prec = bpp;
