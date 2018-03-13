@@ -21,7 +21,7 @@ module.exports = function(grunt) {
       cmakegen: {
         cmd: 'cmake',
         args: [
-          '-DCMAKE_TOOLCHAIN_FILE=/Users/chafey/emsdk_portable/emscripten/1.35.0/cmake/Modules/Platform/Emscripten.cmake',
+          '-DCMAKE_TOOLCHAIN_FILE=/Users/jdrago/emsdk/emscripten/1.37.35/cmake/Modules/Platform/Emscripten.cmake',
           '-DCMAKE_BUILD_TYPE=Release',
           '-DBUILD_CODEC=OFF',
           '-DBUILD_JS=ON',
