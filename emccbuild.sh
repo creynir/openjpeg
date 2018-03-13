@@ -3,7 +3,7 @@ mkdir build
 emcc bin/libopenjpeg-js.bc -o \
      build/openJPEG-FixedMemory-browser.js \
      --memory-init-file 0 \
-     -s EXPORTED_FUNCTIONS="['_jp2_decode']" \
+     -s EXPORTED_FUNCTIONS="['_jp2_decode','_jp2_encode']" \
      -s TOTAL_MEMORY=600000000 \
      -s NO_FILESYSTEM=1 \
      -s EXPORT_NAME="'OpenJPEG'" \
@@ -12,7 +12,7 @@ emcc bin/libopenjpeg-js.bc -o \
 emcc bin/libopenjpeg-js.bc -o \
      build/openJPEG-DynamicMemory-browser.js \
      --memory-init-file 0 \
-     -s EXPORTED_FUNCTIONS="['_jp2_decode']" \
+     -s EXPORTED_FUNCTIONS="['_jp2_decode','_jp2_encode']" \
      -s ALLOW_MEMORY_GROWTH=1 \
      -s NO_FILESYSTEM=1 \
      -s EXPORT_NAME="'OpenJPEG'" \
@@ -21,7 +21,7 @@ emcc bin/libopenjpeg-js.bc -o \
 emcc bin/libopenjpeg-js.bc \
      -o build/openJPEG-FixedMemory-commonJS.js \
      --memory-init-file 0 \
-     -s EXPORTED_FUNCTIONS="['_jp2_decode']" \
+     -s EXPORTED_FUNCTIONS="['_jp2_decode','_jp2_encode']" \
      -s TOTAL_MEMORY=600000000 \
      -s NO_FILESYSTEM=1 \
      -s DISABLE_EXCEPTION_CATCHING=0 \
@@ -29,7 +29,7 @@ emcc bin/libopenjpeg-js.bc \
 emcc bin/libopenjpeg-js.bc \
      -o build/openJPEG-DynamicMemory-commonJS.js \
      --memory-init-file 0 \
-     -s EXPORTED_FUNCTIONS="['_jp2_decode']" \
+     -s EXPORTED_FUNCTIONS="['_jp2_decode','_jp2_encode']" \
      -s ALLOW_MEMORY_GROWTH=1 \
      -s NO_FILESYSTEM=1 \
      -s DISABLE_EXCEPTION_CATCHING=0 \
