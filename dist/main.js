@@ -1,5 +1,10 @@
 function encode(options) {
-  var openJPEG = require('./openJPEG-DynamicMemory-commonJS.js');
+  var openJPEG;
+  if(options.dynamic) {
+    openJPEG = require('./openJPEG-DynamicMemory-commonJS.js');
+  } else {
+    openJPEG = require('./openJPEG-FixedMemory-commonJS.js');
+  }
   var width = options.width;
   var height = options.height;
   var bpp = options.bpp || 8;

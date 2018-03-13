@@ -5,7 +5,7 @@ emcc bin/libopenjpeg-js.bc -o \
      --memory-init-file 0 \
      -s EXPORTED_FUNCTIONS="['_jp2_decode','_jp2_encode']" \
      -s EXTRA_EXPORTED_RUNTIME_METHODS="['writeArrayToMemory','ccall','getValue']" \
-     -s TOTAL_MEMORY=805306368 \
+     -s TOTAL_MEMORY=1073741824 \
      -s NO_FILESYSTEM=1 \
      -s EXPORT_NAME="'OpenJPEG'" \
      -s MODULARIZE=1 \
@@ -25,7 +25,7 @@ emcc bin/libopenjpeg-js.bc \
      --memory-init-file 0 \
      -s EXPORTED_FUNCTIONS="['_jp2_decode','_jp2_encode']" \
      -s EXTRA_EXPORTED_RUNTIME_METHODS="['writeArrayToMemory','ccall','getValue']" \
-     -s TOTAL_MEMORY=805306368 \
+     -s TOTAL_MEMORY=1073741824 \
      -s NO_FILESYSTEM=1 \
      -s DISABLE_EXCEPTION_CATCHING=0 \
      -O3
