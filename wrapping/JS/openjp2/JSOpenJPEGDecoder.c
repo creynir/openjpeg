@@ -145,7 +145,7 @@ EMSCRIPTEN_API int jp2_decode(void * data, int data_size, void ** p_image, int *
 }
 
 // This leaks memory like crazy!
-int jp2_encode(int width, int height, int bpp, void * pixels, void * icc, int iccLen, void ** out, int * outLen)
+EMSCRIPTEN_API int jp2_encode(int width, int height, int bpp, void * pixels, void * icc, int iccLen, void ** out, int * outLen)
 {
     const OPJ_COLOR_SPACE color_space = OPJ_CLRSPC_SRGB;
     int numcomps = 4;
